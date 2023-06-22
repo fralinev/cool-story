@@ -1,12 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
-import styles from "@/styles/Home.module.css";
 import PostForm from "./PostForm";
 import Hero from "./Hero";
 import PostDisplay from "./PostDisplay";
 import Navbar from "./Navbar";
 import { useContext } from "react";
-import { UserContext } from "@/context/userContext";
+import { UserContext } from "../context/userContext";
 
 export default function Home() {
   const { user } = useContext(UserContext);
