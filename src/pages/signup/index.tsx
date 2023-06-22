@@ -14,7 +14,7 @@ const Signup = () => {
     event.preventDefault();
     console.log(input);
     const { data } = await axios.post(
-      "http://localhost:3000/api/users/signup",
+      "cool-story.vercel.app/api/users/signup",
       input
     );
     setInput({ username: "", password: "" });
