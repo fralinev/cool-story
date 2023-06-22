@@ -5,8 +5,11 @@ import PostForm from "./PostForm";
 import Hero from "./Hero";
 import PostDisplay from "./PostDisplay";
 import Navbar from "./Navbar";
+import { useContext } from "react";
+import { UserContext } from "@/context/userContext";
 
 export default function Home() {
+  const { user } = useContext(UserContext);
   return (
     <>
       <Head>
@@ -16,7 +19,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar />
+      <Navbar user={user} />
       <Hero />
       <PostDisplay />
       <PostForm />

@@ -20,8 +20,7 @@ export default async function handler(
     const result = await collection.insertOne({ username, password });
     closeDB();
     res.status(200).json({
-      message: "object successfully inserted",
-      insertedId: result.insertedId,
+      message: "OK",
     });
   }
 }

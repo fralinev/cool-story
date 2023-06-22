@@ -85,7 +85,7 @@
   cursor: pointer ;
 }
 
-.signup-form-outer-container{
+.form-outer-container{
   display: flex;
   justify-content: center;
   width: 100vw;
@@ -93,7 +93,7 @@
   background: radial-gradient(circle at center, #a5c3d6, #7f7fe4);
 }
 
-.signup-form-inner-container{
+.form-inner-container{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,10 +101,10 @@
   width: 40vw;
   height: 60vh;
 }
-.signup-form-inner-container h1{
+.form-inner-container h1{
   margin-bottom: 2rem;
 }
-.signup-form-inner-container form{
+.form-inner-container form{
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -112,10 +112,10 @@
   font-family: 'Lucida Sans';
   font-weight: bold;
 }
-.signup-form-inner-container label{
+.form-inner-container label{
   text-transform: uppercase;
 }
-.signup-form-inner-container button{
+.form-inner-container button{
   width: 50%;
   height: 2rem;
   background-color: rgb(9, 5, 84);
@@ -125,7 +125,7 @@
   cursor: pointer;
 
 }
-.signup-form-inner-container input{
+.form-inner-container input{
   height: 2rem;
 }
 
@@ -152,4 +152,8 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.login-form-outer-container{
+
 }

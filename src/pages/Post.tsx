@@ -4,7 +4,7 @@ const Post = () => {
     <div>
       <div className="post">
         <h4>username</h4>
-        <h4>{date.toString()}</h4>
+        {/* <h4>{date.toString()}</h4> */}
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
           enim consectetur molestias, quibusdam expedita architecto a, nisi

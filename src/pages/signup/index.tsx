@@ -1,10 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const Signup = () => {
   const [input, setInput] = useState({ username: "", password: "" });
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInput((prev) => {
@@ -19,10 +22,13 @@ const Signup = () => {
     setInput({ username: "", password: "" });
     setIsLoading(false);
     setMessage(data.message);
+    if (data.message === "OK") {
+      router.push("/login");
+    }
   };
   return (
-    <div className="signup-form-outer-container">
-      <div className="signup-form-inner-container">
+    <div className="form-outer-container">
+      <div className="form-inner-container">
         <h1>SIGN UP</h1>
         <form onSubmit={handleSubmit}>
           <label>

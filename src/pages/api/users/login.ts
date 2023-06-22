@@ -12,11 +12,17 @@ export default async function handler(
   if (req.method === "POST") {
     const { username, password } = req.body;
     console.log(req.body);
-    const result = await collection.insertOne({ username, password });
-    closeDB();
-    res.status(200).json({
-      message: "object successfully inserted",
-      insertedId: result.insertedId,
-    });
+    const found = await collection.findOne({ username });
+    if (found) {
+      const match = password === found.password;
+      if (match) {
+        res.json({ message: "OK", user: found });
+      } else {
+        res.json({ message: "wrong password" });
+      }
+    } else {
+      res.json({ message: `user ${username} not found` });
+    }
+    return;
   }
 }

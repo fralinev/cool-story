@@ -1,9 +1,19 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState, useContext } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
+import { UserContext, UserContextType } from "../../context/userContext";
 
 const Login = () => {
-  const [input, setInput] = useState({ username: "", password: "" });
+  const [input, setInput] = useState({
+    username: "",
+    password: "",
+  });
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { setUser } = useContext(UserContext as React.Context<UserContextType>);
+
+  const router = useRouter();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInput((prev) => {
@@ -13,20 +23,26 @@ const Login = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(input);
+    setIsLoading(true);
+
     setInput({ username: "", password: "" });
-    const { data } = await axios.post("http://localhost:3000/api/users");
-    console.log(data);
+    const { data } = await axios.post("/api/users/login", input);
+    setIsLoading(false);
     setMessage(data.message);
+    if (data.message === "OK") {
+      setUser(data.user);
+      router.push("/");
+    }
   };
 
-  console.log(message);
   return (
-    <div className="login-form-outer-container">
-      <div className="login-form-inner-container">
+    <div className="form-outer-container">
+      <div className="form-inner-container">
+        <h1>LOG IN</h1>
+
         <form onSubmit={handleSubmit}>
           <label>
-            username
+            username:&nbsp;&nbsp;
             <input
               type="text"
               name="username"
@@ -35,7 +51,7 @@ const Login = () => {
             />
           </label>
           <label>
-            password
+            password:&nbsp;&nbsp;
             <input
               type="password"
               name="password"
@@ -43,8 +59,9 @@ const Login = () => {
               onChange={handleChange}
             />
           </label>
+
           <button>Submit</button>
-          <h2>{message}</h2>
+          <h4>{isLoading ? <div className="lds-dual-ring"></div> : message}</h4>
         </form>
       </div>
     </div>
