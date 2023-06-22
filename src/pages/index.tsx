@@ -1,9 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import PostForm from "./PostForm";
+import Hero from "./Hero";
+import PostDisplay from "./PostDisplay";
+import Navbar from "./Navbar";
 
 export default function Home() {
   return (
@@ -14,9 +15,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.testContainer}>
-        <h1>Test Deploy</h1>
-      </main>
+
+      <Navbar />
+      <Hero />
+      <PostDisplay />
+      <PostForm />
     </>
   );
 }

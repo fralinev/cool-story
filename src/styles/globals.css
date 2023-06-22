@@ -1,0 +1,86 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.navbar-inner-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2.4rem;
+  background-color: bisque;
+}
+.navbar-inner-container h2{
+  padding: 20px;
+}
+
+.navbar-menu-items{
+  display: flex;
+  gap: 10px;
+  margin-right: 10px;
+}
+
+.hero-div{
+  width: 100vw;
+  height: 20rem;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.hero-image{
+  position: absolute;
+  width: 100%;
+  top: -300px;
+  object-fit: cover;
+
+}
+.post-display-outer-container{
+  display: flex;
+  justify-content: center;
+}
+
+.post-display-inner-container{
+  width: 96vw;
+  height: auto;
+  background-color: aquamarine;
+  
+}
+.post{
+  padding: 15px;
+  font-size: 1.9rem;
+}
+
+.post-form-outer-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.post-form-inner-container{
+  display: flex;
+  justify-content: center;
+  background-color: orange;
+  width: 96vw;
+  height: 50vh;
+}
+.post-form{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 40px;
+}
+.post-form textarea{
+  width: 200px;
+  height: 150px;
+  background-color: orangered;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.post-form button{
+  background-color: aquamarine;
+  border: 2px black solid;
+  text-transform: uppercase;
+  cursor: pointer ;
+}
