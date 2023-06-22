@@ -10,9 +10,13 @@ export default async function handler(
   const collection = db.collection("users");
 
   if (req.method === "POST") {
-    console.log(req.body);
     const { username, password } = req.body;
-    console.log(username, password);
+    const found = await collection.findOne({ username });
+    if (found) {
+      console.log(found);
+      closeDB();
+      return res.json({ message: `user ${username} already exists` });
+    }
     const result = await collection.insertOne({ username, password });
     closeDB();
     res.status(200).json({

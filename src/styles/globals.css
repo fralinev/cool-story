@@ -85,6 +85,71 @@
   cursor: pointer ;
 }
 
-.form-container{
-  background-color: yellow;
+.signup-form-outer-container{
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, #a5c3d6, #7f7fe4);
+}
+
+.signup-form-inner-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40vw;
+  height: 60vh;
+}
+.signup-form-inner-container h1{
+  margin-bottom: 2rem;
+}
+.signup-form-inner-container form{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  font-family: 'Lucida Sans';
+  font-weight: bold;
+}
+.signup-form-inner-container label{
+  text-transform: uppercase;
+}
+.signup-form-inner-container button{
+  width: 50%;
+  height: 2rem;
+  background-color: rgb(9, 5, 84);
+  text-transform: uppercase;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+}
+.signup-form-inner-container input{
+  height: 2rem;
+}
+
+.lds-dual-ring{
+  width: 40px;
+  height: 40px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

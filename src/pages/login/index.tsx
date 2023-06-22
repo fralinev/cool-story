@@ -3,6 +3,7 @@ import axios from "axios";
 
 const Login = () => {
   const [input, setInput] = useState({ username: "", password: "" });
+  const [message, setMessage] = useState("");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInput((prev) => {
@@ -16,10 +17,13 @@ const Login = () => {
     setInput({ username: "", password: "" });
     const { data } = await axios.post("http://localhost:3000/api/users");
     console.log(data);
+    setMessage(data.message);
   };
+
+  console.log(message);
   return (
-    <div>
-      <div>
+    <div className="login-form-outer-container">
+      <div className="login-form-inner-container">
         <form onSubmit={handleSubmit}>
           <label>
             username
@@ -40,6 +44,7 @@ const Login = () => {
             />
           </label>
           <button>Submit</button>
+          <h2>{message}</h2>
         </form>
       </div>
     </div>
