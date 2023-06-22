@@ -13,10 +13,7 @@ const Signup = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(input);
-    const { data } = await axios.post(
-      "cool-story.vercel.app/api/users/signup",
-      input
-    );
+    const { data } = await axios.post("/api/users/signup", input);
     setInput({ username: "", password: "" });
 
     console.log(data);
