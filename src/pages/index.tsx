@@ -5,7 +5,7 @@ import Hero from "./Hero";
 import PostDisplay from "./PostDisplay";
 import Navbar from "./Navbar";
 import { useContext } from "react";
-import { UserContext } from "../context/userContext";
+import { UserContext } from "../context/UserContext";
 
 export default function Home() {
   const { user } = useContext(UserContext);

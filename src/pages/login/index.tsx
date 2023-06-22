@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState, useContext } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { UserContext, UserContextType } from "../../context/userContext";
+import { UserContext, UserContextType } from "../../context/UserContext";
 
 const Login = () => {
   const [input, setInput] = useState({

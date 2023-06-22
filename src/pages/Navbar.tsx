@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useContext } from "react";
-import { UserContext } from "../context/userContext";
+import { UserContext } from "../context/UserContext";
 
 const Navbar = ({ user }: any) => {
   const { setUser } = useContext(UserContext);
