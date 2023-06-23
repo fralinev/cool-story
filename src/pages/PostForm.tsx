@@ -5,7 +5,6 @@ import PostDisplay from "./PostDisplay";
 
 const PostForm = () => {
   const { currentUser } = useContext(UserContext);
-
   const [posts, setPosts] = useState([]);
   const [story, setStory] = useState({ user: currentUser, text: "" });
   const [showForm, setShowForm] = useState(false);
