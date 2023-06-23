@@ -1,16 +1,30 @@
 import Post from "./Post";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const PostDisplay = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const { data } = await axios.get("/api/posts");
+      setPosts(data.posts);
+    };
+    fetchPosts();
+  }, [posts]);
+
   return (
     <div className="post-display-outer-container">
       <div className="post-display-inner-container">
-        <Post></Post>
-        <hr />
-        <Post></Post>
-        <hr />
-        <Post></Post>
-        <hr />
-        <Post></Post>
+        {posts.map((post: any) => {
+          return (
+            <Post
+              key={post._id}
+              username={post.user.username}
+              text={post.text}
+            ></Post>
+          );
+        })}
       </div>
     </div>
   );

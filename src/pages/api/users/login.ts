@@ -5,24 +5,30 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await connectDB();
-  const db = getDB();
-  const collection = db.collection("users");
+  try {
+    await connectDB();
+    const db = getDB();
+    const collection = db.collection("users");
 
-  if (req.method === "POST") {
-    const { username, password } = req.body;
-    console.log(req.body);
-    const found = await collection.findOne({ username });
-    if (found) {
-      const match = password === found.password;
-      if (match) {
-        res.json({ message: "OK", user: found });
+    if (req.method === "POST") {
+      const { username, password } = req.body;
+      console.log(req.body);
+      const found = await collection.findOne({ username });
+      if (found) {
+        const match = password === found.password;
+        if (match) {
+          res.json({ message: "OK", user: found });
+        } else {
+          res.json({ message: "wrong password" });
+        }
       } else {
-        res.json({ message: "wrong password" });
+        res.json({ message: `user ${username} not found` });
       }
-    } else {
-      res.json({ message: `user ${username} not found` });
+      return;
     }
-    return;
+  } catch (err) {
+    console.error(err);
+  } finally {
+    closeDB();
   }
 }

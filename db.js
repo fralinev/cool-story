@@ -20,8 +20,12 @@ function getDB() {
   return db;
 }
 
-function closeDB() {
-  client.close();
+async function closeDB() {
+  if (client) {
+    await client.close();
+    client = undefined;
+    db = undefined;
+  }
 }
 
 export { connectDB, getDB, closeDB };

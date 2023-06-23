@@ -54,35 +54,28 @@
 
 .post-form-outer-container{
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 20px;
-}
-
-.post-form-inner-container{
-  display: flex;
-  justify-content: center;
-  background-color: orange;
-  width: 96vw;
+  align-items: center;
+  margin-top: 1rem;
   height: 50vh;
+  background-color: #7f7fe4;
+  margin: 2rem 2rem;
+  
+}
+.post-form-outer-container button{
+  height: 2rem;
+  width: 6rem;
+  margin: 2rem 0 2rem 0;
 }
 .post-form{
   display: flex;
   flex-direction: column;
-  text-align: center;
-  padding-top: 40px;
+  align-items: center;
 }
 .post-form textarea{
-  width: 200px;
-  height: 150px;
-  background-color: orangered;
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
-.post-form button{
-  background-color: aquamarine;
-  border: 2px black solid;
-  text-transform: uppercase;
-  cursor: pointer ;
+  width: 20rem;
+  height: 8rem;
 }
 
 .form-outer-container{

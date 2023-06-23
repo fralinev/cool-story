@@ -4,11 +4,13 @@ import PostForm from "./PostForm";
 import Hero from "./Hero";
 import PostDisplay from "./PostDisplay";
 import Navbar from "./Navbar";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
+import axios from "axios";
 
 export default function Home() {
   const { user } = useContext(UserContext);
+
   return (
     <>
       <Head>

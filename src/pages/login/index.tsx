@@ -25,8 +25,9 @@ const Login = () => {
     event.preventDefault();
     setIsLoading(true);
 
-    setInput({ username: "", password: "" });
     const { data } = await axios.post("/api/users/login", input);
+    setInput({ username: "", password: "" });
+
     setIsLoading(false);
     setMessage(data.message);
     if (data.message === "OK") {

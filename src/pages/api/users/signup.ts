@@ -5,22 +5,27 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await connectDB();
-  const db = getDB();
-  const collection = db.collection("users");
+  try {
+    await connectDB();
+    const db = getDB();
+    const collection = db.collection("users");
 
-  if (req.method === "POST") {
-    const { username, password } = req.body;
-    const found = await collection.findOne({ username });
-    if (found) {
-      console.log(found);
+    if (req.method === "POST") {
+      const { username, password } = req.body;
+      const found = await collection.findOne({ username });
+      if (found) {
+        closeDB();
+        return res.json({ message: `user ${username} already exists` });
+      }
+      await collection.insertOne({ username, password });
       closeDB();
-      return res.json({ message: `user ${username} already exists` });
+      res.status(200).json({
+        message: "OK",
+      });
     }
-    const result = await collection.insertOne({ username, password });
+  } catch (err) {
+    console.error(err);
+  } finally {
     closeDB();
-    res.status(200).json({
-      message: "OK",
-    });
   }
 }
