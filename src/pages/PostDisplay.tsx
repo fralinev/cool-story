@@ -1,5 +1,5 @@
 import Post from "./Post";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import axios from "axios";
 
 const PostDisplay = () => {
@@ -11,7 +11,9 @@ const PostDisplay = () => {
       setPosts(data.posts);
     };
     fetchPosts();
-  }, [posts]);
+  }, []);
+
+  useEffect(() => {});
 
   return (
     <div className="post-display-outer-container">

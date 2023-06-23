@@ -11,7 +11,9 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const { setUser } = useContext(UserContext as React.Context<UserContextType>);
+  const { setCurrentUser } = useContext(
+    UserContext as React.Context<UserContextType>
+  );
 
   const router = useRouter();
 
@@ -24,14 +26,13 @@ const Login = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-
     const { data } = await axios.post("/api/users/login", input);
     setInput({ username: "", password: "" });
 
     setIsLoading(false);
     setMessage(data.message);
     if (data.message === "OK") {
-      setUser(data.user);
+      setCurrentUser(data.user);
       router.push("/");
     }
   };

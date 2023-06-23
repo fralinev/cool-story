@@ -3,14 +3,14 @@ import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 
 const PostForm = () => {
-  const { user } = useContext(UserContext);
-  const [story, setStory] = useState({ user, text: "" });
+  const { currentUser } = useContext(UserContext);
+  const [story, setStory] = useState({ user: currentUser, text: "" });
   const [showForm, setShowForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   const handleAddStoryClick = () => {
-    if (!user) {
+    if (!currentUser) {
       return alert("plz sign in!");
     }
     setShowForm((prev) => !prev);
@@ -28,7 +28,7 @@ const PostForm = () => {
     setIsLoading(false);
     setMessage(data.message);
     setShowForm(false);
-    setStory({ user, text: "" });
+    setStory({ user: currentUser, text: "" });
   };
 
   return (

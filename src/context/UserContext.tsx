@@ -3,22 +3,23 @@ import { createContext, useState } from "react";
 type User = {
   username: string;
   id: string;
+  isAdmin: boolean;
 };
 export type UserContextType = {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  currentUser: User | null;
+  setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
 };
 const UserContext = createContext<UserContextType>({
-  user: null,
-  setUser: () => {},
+  currentUser: null,
+  setCurrentUser: () => {},
 });
 
 const UserContextProvider = ({ children }: any) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   const contextValue = {
-    user,
-    setUser,
+    currentUser,
+    setCurrentUser,
   };
 
   // Return the provider with the context value and the children components

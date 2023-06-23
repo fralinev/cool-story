@@ -14,11 +14,9 @@ export default async function handler(
       const { username, password } = req.body;
       const found = await collection.findOne({ username });
       if (found) {
-        closeDB();
         return res.json({ message: `user ${username} already exists` });
       }
-      await collection.insertOne({ username, password });
-      closeDB();
+      await collection.insertOne({ username, password, isAdmin: false });
       res.status(200).json({
         message: "OK",
       });

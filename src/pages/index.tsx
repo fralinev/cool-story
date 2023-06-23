@@ -9,7 +9,7 @@ import { UserContext } from "../context/UserContext";
 import axios from "axios";
 
 export default function Home() {
-  const { user } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
 
   return (
     <>
@@ -20,7 +20,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar user={user} />
+      <Navbar currentUser={currentUser} />
       <Hero />
       <PostDisplay />
       <PostForm />

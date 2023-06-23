@@ -12,13 +12,13 @@ export default async function handler(
 
     if (req.method === "POST") {
       const { username, password } = req.body;
-      console.log(req.body);
       const found = await collection.findOne({ username });
       if (found) {
         const match = password === found.password;
         if (match) {
           res.json({ message: "OK", user: found });
         } else {
+          console.log(match, found);
           res.json({ message: "wrong password" });
         }
       } else {

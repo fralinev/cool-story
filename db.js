@@ -17,14 +17,15 @@ async function connectDB() {
 }
 
 function getDB() {
+  // console.log("DATABASE", db);
   return db;
 }
 
 async function closeDB() {
   if (client) {
     await client.close();
-    client = undefined;
-    db = undefined;
+    client = null;
+    db = null;
   }
 }
 
