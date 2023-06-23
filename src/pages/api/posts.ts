@@ -11,7 +11,6 @@ export default async function handler(
     const collection = db.collection("posts");
     if (req.method === "GET") {
       const posts = await collection.find().toArray();
-      console.log("TEST");
       res.json({ posts });
     }
     if (req.method === "POST") {
