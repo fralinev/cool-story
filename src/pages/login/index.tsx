@@ -25,6 +25,7 @@ const Login = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     setIsLoading(true);
     const { data } = await axios.post("/api/users/login", input);
     setInput({ username: "", password: "" });
