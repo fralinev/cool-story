@@ -5,10 +5,10 @@ const Post = ({ post, setPosts }: any) => {
   const [hovered, setHovered] = useState(-1);
 
   const deletePost = async (id: any) => {
-    // const response = await axios.delete(`/api/posts/${id}`);
-    // setPosts((prev: any) => {
-    //   return prev.filter((post: any) => post._id !== id);
-    // });
+    const response = await axios.delete(`/api/posts/${id}`);
+    setPosts((prev: any) => {
+      return prev.filter((post: any) => post._id !== id);
+    });
   };
 
   const deleteButton = (

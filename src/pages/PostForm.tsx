@@ -19,6 +19,7 @@ const PostForm = () => {
     const fetchPosts = async () => {
       const { data } = await axios.get("/api/posts");
       setPosts(data.posts);
+      console.log(currentUser);
     };
 
     fetchPosts();
@@ -48,7 +49,7 @@ const PostForm = () => {
     setIsLoading(false);
     setMessage(response.data.message);
     setShowForm(false);
-    setStory({ title: "", author: "", body: "" });
+    setStory({ title: "", author: currentUser?.username, body: "" });
     response = await axios.get("/api/posts");
     setPosts(response.data.posts);
   };

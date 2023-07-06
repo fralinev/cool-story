@@ -15,6 +15,7 @@ export default async function handler(
     }
     if (req.method === "POST") {
       await collection.insertOne(req.body);
+      console.log(req.body);
       res.json({ message: "Story added!" });
     }
   } catch (err) {
