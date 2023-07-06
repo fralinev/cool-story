@@ -1,5 +1,4 @@
 import { MongoClient } from "mongodb";
-require("dotenv").config();
 
 const password = process.env.DB_PASSWORD;
 const uri = `mongodb+srv://fralinev:${password}@cluster1.2iciml8.mongodb.net/cool?retryWrites=true&w=majority`;
@@ -17,7 +16,6 @@ async function connectDB() {
 }
 
 function getDB() {
-  // console.log("DATABASE", db);
   return db;
 }
 

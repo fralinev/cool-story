@@ -1,29 +1,31 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connectDB, getDB, closeDB } from "../../../../db";
+import dbConnect from "../../../../server/dbConnect";
+import User from "../../../../server/models/User";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    await connectDB();
-    const db = getDB();
-    const collection = db.collection("users");
+    await dbConnect();
 
     if (req.method === "POST") {
       const { username, password } = req.body;
-      const found = await collection.findOne({ username });
-      if (found) {
-        return res.json({ message: `user ${username} already exists` });
-      }
-      await collection.insertOne({ username, password, isAdmin: false });
+
+      const duplicate = await User.findOne({ username }).exec();
+      if (duplicate)
+        return res.json({ message: `User ${username} already exists.` });
+
+      await User.create({
+        username,
+        password,
+      });
+
       res.status(200).json({
         message: "OK",
       });
     }
-  } catch (err) {
-    console.error(err);
-  } finally {
-    closeDB();
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
   }
 }

@@ -1,21 +1,17 @@
 import Post from "./Post";
+import { useEffect } from "react";
 
-const PostDisplay = ({ posts }: any) => {
+const PostDisplay = ({ posts, setPosts }: any) => {
   if (!posts) {
     return <div>loading...</div>;
   }
+
   return (
     <>
       <div className="post-display-outer-container">
         <div className="post-display-inner-container">
           {posts.map((post: any) => {
-            return (
-              <Post
-                key={post._id}
-                username={post.user.username}
-                text={post.text}
-              ></Post>
-            );
+            return <Post key={post._id} post={post} setPosts={setPosts}></Post>;
           })}
         </div>
       </div>

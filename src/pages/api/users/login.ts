@@ -1,34 +1,28 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connectDB, getDB, closeDB } from "../../../../db";
+import dbConnect from "../../../../server/dbConnect";
+import User from "../../../../server/models/User";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    await connectDB();
-    const db = getDB();
-    const collection = db.collection("users");
+    await dbConnect();
 
     if (req.method === "POST") {
       const { username, password } = req.body;
-      const found = await collection.findOne({ username });
+
+      const found = await User.findOne({ username }).exec();
+
+      if (!found) return res.json({ message: `User ${username} not found` });
+
       if (found) {
         const match = password === found.password;
-        if (match) {
-          res.json({ message: "OK", user: found });
-        } else {
-          console.log(match, found);
-          res.json({ message: "wrong password" });
-        }
-      } else {
-        res.json({ message: `user ${username} not found` });
+        if (match) return res.json({ message: "OK", user: found });
+        else return res.json({ message: "wrong password" });
       }
-      return;
     }
   } catch (err) {
     console.error(err);
-  } finally {
-    closeDB();
   }
 }

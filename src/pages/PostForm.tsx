@@ -5,8 +5,12 @@ import PostDisplay from "./PostDisplay";
 
 const PostForm = () => {
   const { currentUser } = useContext(UserContext);
-  const [posts, setPosts] = useState([]);
-  const [story, setStory] = useState({ user: currentUser, text: "" });
+  const [posts, setPosts] = useState<any>([]);
+  const [story, setStory] = useState({
+    title: "",
+    author: currentUser?.username,
+    body: "",
+  });
   const [showForm, setShowForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -16,6 +20,7 @@ const PostForm = () => {
       const { data } = await axios.get("/api/posts");
       setPosts(data.posts);
     };
+
     fetchPosts();
   }, []);
 
@@ -27,9 +32,11 @@ const PostForm = () => {
     setMessage("");
   };
 
-  const handleStoryChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleStoryChange = (
+    event: ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>
+  ) => {
     setStory((prev) => {
-      return { ...prev, text: event.target.value };
+      return { ...prev, [event.target.name]: event.target.value };
     });
   };
 
@@ -41,21 +48,34 @@ const PostForm = () => {
     setIsLoading(false);
     setMessage(response.data.message);
     setShowForm(false);
-    setStory({ user: currentUser, text: "" });
+    setStory({ title: "", author: "", body: "" });
     response = await axios.get("/api/posts");
     setPosts(response.data.posts);
   };
 
   return (
     <>
-      <PostDisplay posts={posts} />
+      <PostDisplay posts={posts} setPosts={setPosts} />
       <div className="post-form-outer-container">
         <button onClick={handleAddStoryClick}>
           {showForm ? "Nevermind" : "Add a story"}
         </button>
         {showForm ? (
           <form className="post-form" onSubmit={handleFormSubmit}>
-            <textarea value={story.text} onChange={handleStoryChange} />
+            <label>
+              Title:
+              <input
+                type="text"
+                name="title"
+                value={story.title}
+                onChange={handleStoryChange}
+              />
+            </label>
+            <textarea
+              name="body"
+              value={story.body}
+              onChange={handleStoryChange}
+            />
             <button>submit</button>
           </form>
         ) : null}

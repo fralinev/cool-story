@@ -15,14 +15,24 @@ const Navbar = ({ currentUser }: any) => {
         </h2>
         <div className="navbar-menu-items">
           {currentUser ? (
-            <div onClick={handleClick} style={{ cursor: "pointer" }}>
-              logout
+            <div>
+              <div onClick={handleClick} style={{ cursor: "pointer" }}>
+                logout
+              </div>
+              <Link href="/archives">archives</Link>
+              <span>&nbsp;</span>
+
+              <Link href="/users">users</Link>
+              <span>&nbsp;</span>
+              <Link href="#">post</Link>
             </div>
           ) : (
-            <Link href="/login">login</Link>
+            <div>
+              <Link href="/login">login</Link>
+              <span>&nbsp;</span>
+              <Link href="/signup">signup</Link>
+            </div>
           )}
-          {currentUser ? null : <Link href="/signup">signup</Link>}
-          <h4>post</h4>
         </div>
       </div>
     </div>
