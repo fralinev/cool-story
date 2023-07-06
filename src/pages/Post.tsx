@@ -15,6 +15,10 @@ const Post = ({ post, setPosts }: any) => {
     <button onClick={() => deletePost(post._id)}>Delete</button>
   );
 
+  if (!post) {
+    return <div>loading...</div>;
+  }
+
   return (
     <div
       onMouseEnter={() => setHovered(post._id)}
