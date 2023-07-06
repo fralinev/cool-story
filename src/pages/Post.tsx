@@ -21,7 +21,7 @@ const Post = ({ post, setPosts }: any) => {
       onMouseLeave={() => setHovered(-1)}
     >
       <div className="post">
-        <h4>{post.title}</h4>
+        <h4>{post ? post.title : null}</h4>
         <h4>{`by ${post.author}`}</h4>
         <p>{post.body}</p>
         {hovered === post._id ? deleteButton : null}
