@@ -10,9 +10,13 @@ const PostDisplay = ({ posts, setPosts }: any) => {
     <>
       <div className="post-display-outer-container">
         <div className="post-display-inner-container">
-          {posts.map((post: any) => {
-            return <Post key={post._id} post={post} setPosts={setPosts}></Post>;
-          })}
+          {posts
+            ? posts.map((post: any) => {
+                return (
+                  <Post key={post._id} post={post} setPosts={setPosts}></Post>
+                );
+              })
+            : null}
         </div>
       </div>
     </>
