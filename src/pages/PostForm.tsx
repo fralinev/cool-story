@@ -54,6 +54,10 @@ const PostForm = () => {
     setPosts(response.data.posts);
   };
 
+  if (!posts || posts.length === 0) {
+    return <div>loading...</div>;
+  }
+
   return (
     <>
       <PostDisplay posts={posts} setPosts={setPosts} />
