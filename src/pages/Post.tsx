@@ -22,8 +22,8 @@ const Post = ({ post, setPosts }: any) => {
     >
       <div className="post">
         <h4>{post ? post.title : null}</h4>
-        <h4>{`by ${post.author}`}</h4>
-        <p>{post.body}</p>
+        <h4>{post ? `by ${post.author}` : null}</h4>
+        <p>{post ? post.body : null}</p>
         {hovered === post._id ? deleteButton : null}
       </div>
       <hr />
