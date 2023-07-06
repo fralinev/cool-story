@@ -10,6 +10,7 @@ export default async function handler(
     await dbConnect();
 
     if (req.method === "POST") {
+      console.log("REQ BODY: ", req.body);
       const { username, password } = req.body;
 
       const found = await User.findOne({ username }).exec();
