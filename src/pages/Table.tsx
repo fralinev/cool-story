@@ -13,7 +13,7 @@ const Table = ({ data }: any) => {
       <table>
         <thead>
           <tr>
-            {headers.length > 0
+            {headers?.length > 0
               ? headers.map((header: any, i: number) => {
                   return <th key={i}>{header}</th>;
                 })
@@ -21,7 +21,7 @@ const Table = ({ data }: any) => {
           </tr>
         </thead>
         <tbody>
-          {data.length > 0
+          {data?.length > 0
             ? data.map((item: any) => {
                 return (
                   <tr key={item._id}>
