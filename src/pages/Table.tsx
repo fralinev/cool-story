@@ -10,7 +10,6 @@ const Table = ({ data }: any) => {
 
   return (
     <>
-      {/* {data.length > 0 ? data[0][headers[0]] : null} */}
       <table>
         <thead>
           <tr>
