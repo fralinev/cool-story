@@ -13,21 +13,29 @@ const Table = ({ data }: any) => {
       <table>
         <thead>
           <tr>
-            {headers.map((header: any, i: number) => {
-              return <th key={i}>{header}</th>;
-            })}
+            {headers.length > 0
+              ? headers.map((header: any, i: number) => {
+                  return <th key={i}>{header}</th>;
+                })
+              : null}
           </tr>
         </thead>
         <tbody>
-          {data.map((item: any) => {
-            return (
-              <tr key={item._id}>
-                {headers.map((header: any, i: number) => {
-                  return <td key={i}>{JSON.stringify(item[header])}</td>;
-                })}
-              </tr>
-            );
-          })}
+          {data.length > 0
+            ? data.map((item: any) => {
+                return (
+                  <tr key={item._id}>
+                    {headers.length > 0
+                      ? headers.map((header: any, i: number) => {
+                          return (
+                            <td key={i}>{JSON.stringify(item[header])}</td>
+                          );
+                        })
+                      : null}
+                  </tr>
+                );
+              })
+            : null}
         </tbody>
       </table>
     </>
