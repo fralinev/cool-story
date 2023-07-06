@@ -10,7 +10,7 @@ const PostDisplay = ({ posts, setPosts }: any) => {
     <>
       <div className="post-display-outer-container">
         <div className="post-display-inner-container">
-          {posts
+          {posts.length > 0
             ? posts.map((post: any) => {
                 return (
                   <Post key={post._id} post={post} setPosts={setPosts}></Post>
