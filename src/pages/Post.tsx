@@ -12,7 +12,7 @@ const Post = ({ post, setPosts }: any) => {
   };
 
   const deleteButton = (
-    <button onClick={() => deletePost(post._id)}>Delete</button>
+    <button onClick={() => deletePost(post ? post._id : null)}>Delete</button>
   );
 
   return (
