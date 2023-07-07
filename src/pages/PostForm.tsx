@@ -8,8 +8,12 @@ const PostForm = () => {
   const [posts, setPosts] = useState<any>([]);
   const [story, setStory] = useState({
     title: "",
-    author: currentUser?.username,
+    author: currentUser?.username || "anon",
     body: "",
+    score: {
+      good: 0,
+      bad: 0,
+    },
   });
   const [showForm, setShowForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +53,10 @@ const PostForm = () => {
     setIsLoading(false);
     setMessage(response.data.message);
     setShowForm(false);
-    setStory({ title: "", author: currentUser?.username, body: "" });
+    setStory((prev: any) => {
+      return { ...prev, title: "", body: "" };
+    });
+
     response = await axios.get("/api/posts");
     setPosts(response.data.posts);
   };

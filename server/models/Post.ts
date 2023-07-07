@@ -11,6 +11,14 @@ const PostSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  score: {
+    good: {
+      type: Number,
+    },
+    bad: {
+      type: Number,
+    },
+  },
 });
 
 const Post = models.Post || model("Post", PostSchema);

@@ -24,6 +24,9 @@ const UserSchema: Schema = new Schema({
       default: false,
     },
   },
+  interestedBy: {
+    type: [String],
+  },
 });
 
 const User = models.User || model("User", UserSchema);
