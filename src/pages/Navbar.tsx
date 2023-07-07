@@ -8,6 +8,11 @@ const Navbar = ({ currentUser }: any) => {
   const handleLogout = () => {
     window.location.reload();
   };
+
+  if (!currentUser) {
+    return <div>loading...</div>;
+  }
+
   return (
     <div className="navbar-outer-container">
       <div className="navbar-inner-container">
