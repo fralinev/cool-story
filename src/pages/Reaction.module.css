@@ -1,0 +1,40 @@
+.reactionSection{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(182, 231, 241);
+    height: 2.5rem;
+    padding-left: 1rem;
+}
+.reactionOptions{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 1rem;
+    padding-right: 1rem;
+}
+.reaction{
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+}
+.reaction:hover{
+    background-color: rgb(225, 233, 240);
+}
+.reactionSelected{
+    background-color: rgb(239, 227, 147);
+    border-radius: 5px;
+    padding: 5px;
+}
+.adminDelete{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.adminDelete:hover{
+    background-color: orangered;
+    color: white;
+    padding: 5px
+}

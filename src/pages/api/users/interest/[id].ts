@@ -13,7 +13,7 @@ export default async function handler(
       console.log("query", req.query);
       console.log("body", req.body);
 
-      if (req.body.value === "Yes") {
+      if (req.body.value === "Interesting") {
         const duplicate = await User.findOne({
           _id: req.query.id,
           "interest.for": { $elemMatch: { postid: req.body.postid } },
@@ -54,7 +54,7 @@ export default async function handler(
         );
         return res.json({ status: "GOK" });
       }
-      if (req.body.value === "No") {
+      if (req.body.value === "Not Interesting") {
         const duplicate = await User.findOne({
           _id: req.query.id,
           "interest.against": { $elemMatch: { postid: req.body.postid } },
