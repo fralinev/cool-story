@@ -3,7 +3,7 @@ import axios from "axios";
 import { UserContext } from "../context/UserContext";
 
 const Post = ({ post, setPosts }: any) => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
 
   const [hovered, setHovered] = useState(-1);
 
@@ -14,22 +14,29 @@ const Post = ({ post, setPosts }: any) => {
     });
   };
 
-  const handleGoodClick = async (id: any) => {
+  const handleInterestClick = async (e: any, postid: any, posttitle: any) => {
     if (currentUser.username === "anon") {
       return alert("plz sign in to vote");
     }
-    const response = await axios.put(`/api/posts/${id}`, {
-      good: 1,
+
+    const response = await axios.put(`/api/users/interest/${currentUser._id}`, {
+      postid,
+      posttitle,
+      value: e.target.innerHTML,
     });
-    console.log(response.data);
-  };
-  const handleBadClick = async (id: any) => {
-    if (currentUser.username === "anon") {
-      return alert("plz sign in to vote");
-    }
-    const response = await axios.put(`/api/posts/${id}`, {
-      bad: 1,
+    setCurrentUser((prev: any) => {
+      return {
+        ...prev,
+        interest: {
+          ...prev.interest,
+          for: [...prev.interest.for, { postid, posttitle }],
+          against: prev.interest.against.filter((item: any) => {
+            return item.postid !== postid;
+          }),
+        },
+      };
     });
+
     console.log(response.data);
   };
 
@@ -40,9 +47,23 @@ const Post = ({ post, setPosts }: any) => {
   const interestButtons = (
     <>
       <h6>Interesting?</h6>
-      <button onClick={() => handleGoodClick(post._id)}>yes</button>
-      <span>&nbsp;</span>
-      <button onClick={() => handleBadClick(post._id)}>no</button>
+      <div>
+        <span
+          className=""
+          style={{ cursor: "pointer" }}
+          onClick={(e) => handleInterestClick(e, post._id, post.title)}
+        >
+          Yes
+        </span>
+        <span>&nbsp;</span>
+        <span
+          className=""
+          style={{ cursor: "pointer" }}
+          onClick={(e) => handleInterestClick(e, post._id, post.title)}
+        >
+          No
+        </span>
+      </div>
     </>
   );
 
@@ -64,6 +85,12 @@ const Post = ({ post, setPosts }: any) => {
         <br />
         {hovered === post._id ? deleteButton : null}
       </div>
+      <br />
+      <h2>
+        {currentUser?.interest?.for.find((obj: any) => obj.postid === post._id)
+          ? "INTERESTING"
+          : null}
+      </h2>
       <hr />
     </div>
   );

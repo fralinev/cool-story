@@ -24,8 +24,13 @@ const UserSchema: Schema = new Schema({
       default: false,
     },
   },
-  interestedBy: {
-    type: [String],
+  interest: {
+    for: {
+      type: [{}],
+    },
+    against: {
+      type: [{}],
+    },
   },
 });
 
