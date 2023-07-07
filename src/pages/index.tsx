@@ -10,11 +10,6 @@ import axios from "axios";
 export default function Home() {
   const { currentUser } = useContext(UserContext);
 
-  const handleTest = async () => {
-    const response = await axios.get("/api/test");
-    console.log(response.data);
-  };
-
   return (
     <>
       <Head>
@@ -27,7 +22,6 @@ export default function Home() {
       <Navbar currentUser={currentUser} />
       <Hero />
       <PostForm />
-      <button onClick={handleTest}>test</button>
     </>
   );
 }

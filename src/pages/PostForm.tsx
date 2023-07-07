@@ -23,7 +23,7 @@ const PostForm = () => {
     const fetchPosts = async () => {
       const { data } = await axios.get("/api/posts");
       setPosts(data.posts);
-      console.log(currentUser);
+      console.log("CURRENT USER = ", currentUser);
     };
 
     fetchPosts();

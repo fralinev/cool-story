@@ -9,13 +9,24 @@ import { createContext, useState } from "react";
 //   currentUser: User | null;
 //   setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
 // };
+
+export const anon = {
+  roles: {
+    admin: false,
+    editor: false,
+    user: false,
+  },
+  username: "anon",
+  _id: 1,
+};
+
 const UserContext = createContext<any>({
   currentUser: null,
   setCurrentUser: () => {},
 });
 
 const UserContextProvider = ({ children }: any) => {
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<any>(anon);
 
   const contextValue = {
     currentUser,

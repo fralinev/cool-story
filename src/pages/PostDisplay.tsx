@@ -2,7 +2,7 @@ import Post from "./Post";
 import { useEffect } from "react";
 
 const PostDisplay = ({ posts, setPosts }: any) => {
-  if (!posts) {
+  if (!posts || posts.length === 0) {
     return <div>loading...</div>;
   }
 
@@ -10,13 +10,9 @@ const PostDisplay = ({ posts, setPosts }: any) => {
     <>
       <div className="post-display-outer-container">
         <div className="post-display-inner-container">
-          {posts.length > 0
-            ? posts.map((post: any) => {
-                return (
-                  <Post key={post._id} post={post} setPosts={setPosts}></Post>
-                );
-              })
-            : null}
+          {posts.map((post: any) => {
+            return <Post key={post._id} post={post} setPosts={setPosts}></Post>;
+          })}
         </div>
       </div>
     </>

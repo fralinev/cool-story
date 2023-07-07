@@ -1,22 +1,26 @@
 import Link from "next/link";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { anon } from "../context/UserContext";
 
 const Navbar = ({ currentUser }: any) => {
   const { setCurrentUser } = useContext(UserContext);
-  const handleClick = () => {
-    setCurrentUser(null);
+  const handleLogout = () => {
+    window.location.reload();
   };
   return (
     <div className="navbar-outer-container">
       <div className="navbar-inner-container">
         <h2>
-          Cool story, {currentUser ? `${currentUser.username}...` : "bruh..."}
+          Cool story,{" "}
+          {currentUser.username !== "anon"
+            ? `${currentUser.username}...`
+            : "bruh..."}
         </h2>
         <div className="navbar-menu-items">
-          {currentUser ? (
+          {currentUser.username !== "anon" ? (
             <div>
-              <div onClick={handleClick} style={{ cursor: "pointer" }}>
+              <div onClick={handleLogout} style={{ cursor: "pointer" }}>
                 logout
               </div>
               <Link href="/archives">archives</Link>

@@ -15,7 +15,7 @@ const Post = ({ post, setPosts }: any) => {
   };
 
   const handleGoodClick = async (id: any) => {
-    if (!currentUser) {
+    if (currentUser.username === "anon") {
       return alert("plz sign in to vote");
     }
     const response = await axios.put(`/api/posts/${id}`, {
@@ -24,7 +24,7 @@ const Post = ({ post, setPosts }: any) => {
     console.log(response.data);
   };
   const handleBadClick = async (id: any) => {
-    if (!currentUser) {
+    if (currentUser.username === "anon") {
       return alert("plz sign in to vote");
     }
     const response = await axios.put(`/api/posts/${id}`, {
