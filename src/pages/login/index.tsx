@@ -25,10 +25,7 @@ const Login = () => {
     event.preventDefault();
 
     setIsLoading(true);
-    const { data } = await axios.post(
-      "https://cool-story.vercel.app/api/users/login",
-      input
-    );
+    const { data } = await axios.post("/api/users/login", input);
     setInput({ username: "", password: "" });
 
     setIsLoading(false);
