@@ -1,5 +1,5 @@
 import Post from "./Post";
-import { useEffect } from "react";
+import styles from "./PostDisplay.module.css";
 
 const PostDisplay = ({ posts, setPosts }: any) => {
   if (!posts || posts.length === 0) {

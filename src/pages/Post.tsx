@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import Reaction from "./Reaction";
+import PostHeader from "./PostHeader";
+import PostBody from "./PostBody";
 
 const Post = ({ post, setPosts }: any) => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -18,11 +20,8 @@ const Post = ({ post, setPosts }: any) => {
       onMouseLeave={() => setHovered(-1)}
     >
       <div className="post">
-        <h4>{post.title}</h4>
-        <h4>{`by ${post.author}`}</h4>
-        <p>{post.body}</p>
-
-        <br />
+        <PostHeader post={post} />
+        <PostBody post={post} />
       </div>
       <br />
 
