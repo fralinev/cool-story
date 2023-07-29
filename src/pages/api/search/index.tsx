@@ -9,17 +9,16 @@ export default async function handler(
   try {
     await dbConnect();
     if (req.method === "GET") {
-      if (req.query.instruction === "full") {
-        const posts = await Post.find();
-        return res.json({ posts });
+      if (
+        typeof req.query.term === "string" &&
+        typeof req.query.option === "string"
+      ) {
+        console.log(req.query);
+        const result = await Post.find({
+          [req.query.option]: { $regex: new RegExp(req.query.term, "i") },
+        });
+        return res.json(result);
       }
-      const posts = await Post.find().sort({ createdAt: -1 }).limit(7);
-      // console.log(posts);
-      return res.json({ posts });
-    }
-    if (req.method === "POST") {
-      await Post.create(req.body);
-      res.json({ message: "Story added!" });
     }
   } catch (err) {
     console.error(err);

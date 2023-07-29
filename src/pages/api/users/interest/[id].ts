@@ -10,31 +10,44 @@ export default async function handler(
   try {
     await dbConnect();
     if (req.method === "PUT") {
-      console.log("query", req.query);
-      console.log("body", req.body);
-
+      const { post_id, post_title } = req.body;
       if (req.body.value === "Interesting") {
-        const duplicate = await User.findOne({
+        const already = await User.findOne({
           _id: req.query.id,
-          "interest.for": { $elemMatch: { postid: req.body.postid } },
+          "interest.for": { $elemMatch: { post_id } },
         });
 
         const contrary = await User.findOne({
           _id: req.query.id,
-          "interest.against": { $elemMatch: { postid: req.body.postid } },
+          "interest.against": { $elemMatch: { post_id } },
         });
 
-        if (duplicate) {
+        if (already) {
           return res.json({
-            message: "You've already positively evaluated this post.",
-            status: "NOK",
+            status: "already positive",
           });
         }
         if (contrary) {
           await User.findOneAndUpdate(
             { _id: req.query.id },
-            { $pull: { "interest.against": { postid: req.body.postid } } }
+            {
+              $pull: { "interest.against": { post_id } },
+              $push: {
+                "interest.for": {
+                  post_id,
+                  post_title,
+                },
+              },
+            }
           );
+          const updatedPost = await Post.findOneAndUpdate(
+            { _id: post_id },
+            { $inc: { "score.good": 1, "score.bad": -1 } }
+          );
+          return res.json({
+            status: "updated contrary case for positive route",
+            post: updatedPost,
+          });
         }
 
         await User.findOneAndUpdate(
@@ -42,40 +55,59 @@ export default async function handler(
           {
             $push: {
               "interest.for": {
-                postid: req.body.postid,
-                posttitle: req.body.posttitle,
+                post_id,
+                post_title,
               },
             },
           }
         );
-        await Post.findOneAndUpdate(
-          { _id: req.body.postid },
+        const updatedPost = await Post.findOneAndUpdate(
+          { _id: post_id },
           { $inc: { "score.good": 1 } }
         );
-        return res.json({ status: "GOK" });
+
+        return res.json({
+          status: "User interest and post score updated for affirmative route",
+          post: updatedPost,
+        });
       }
       if (req.body.value === "Not Interesting") {
-        const duplicate = await User.findOne({
+        const already = await User.findOne({
           _id: req.query.id,
-          "interest.against": { $elemMatch: { postid: req.body.postid } },
+          "interest.against": { $elemMatch: { post_id } },
         });
 
         const contrary = await User.findOne({
           _id: req.query.id,
-          "interest.for": { $elemMatch: { postid: req.body.postid } },
+          "interest.for": { $elemMatch: { post_id } },
         });
 
-        if (duplicate) {
+        if (already) {
           return res.json({
-            message: "You've already negatively evaluated this post.",
-            status: "NOK",
+            message: "already negative",
           });
         }
         if (contrary) {
           await User.findOneAndUpdate(
             { _id: req.query.id },
-            { $pull: { "interest.for": { postid: req.body.postid } } }
+            {
+              $pull: { "interest.for": { post_id } },
+              $push: {
+                "interest.against": {
+                  post_id,
+                  post_title,
+                },
+              },
+            }
           );
+          const updatedPost = await Post.findOneAndUpdate(
+            { _id: post_id },
+            { $inc: { "score.good": -1, "score.bad": 1 } }
+          );
+          return res.json({
+            status: "updated contrary case for negative route",
+            post: updatedPost,
+          });
         }
 
         await User.findOneAndUpdate(
@@ -83,17 +115,20 @@ export default async function handler(
           {
             $push: {
               "interest.against": {
-                postid: req.body.postid,
-                posttitle: req.body.posttitle,
+                post_id,
+                post_title,
               },
             },
           }
         );
-        await Post.findOneAndUpdate(
-          { _id: req.body.postid },
+        const updatedPost = await Post.findOneAndUpdate(
+          { _id: post_id },
           { $inc: { "score.bad": 1 } }
         );
-        return res.json({ status: "BOK" });
+        return res.json({
+          status: "User interest and post score updated for negative route",
+          post: updatedPost,
+        });
       }
       return res.json({ status: "All if statements were exhausted..." });
     }

@@ -3,51 +3,63 @@ import styles from "./Reaction.module.css";
 import { useContext } from "react";
 import axios from "axios";
 import { MdRemoveCircle } from "react-icons/md";
+import { fetchPosts } from "../../server/utils";
 
 const Reaction = ({ post, setPosts }: any) => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
-  const handleInterestClick = async (e: any, postid: any, posttitle: any) => {
+  const handleInterestClick = async (e: any, post_id: any, post_title: any) => {
     if (currentUser.username === "anon") {
       return alert("plz sign in to vote");
     }
+    const alreadyFor = currentUser.interest.for.find(
+      (obj: any) => obj.postid === post_id
+    );
+    const alreadyAgainst = currentUser.interest.against.find(
+      (obj: any) => obj.postid === post_id
+    );
 
-    const response = await axios.put(`/api/users/interest/${currentUser._id}`, {
-      postid,
-      posttitle,
+    if (e.target.innerHTML === "Interesting" && alreadyFor)
+      return console.log("already for, no request sent");
+    if (e.target.innerHTML === "Not Interesting" && alreadyAgainst)
+      return console.log("already against, no request sent");
+
+    await axios.put(`/api/users/interest/${currentUser._id}`, {
+      post_id,
+      post_title,
       value: e.target.innerHTML,
     });
+
     if (e.target.innerHTML === "Interesting") {
       setCurrentUser((prev: any) => {
         return {
           ...prev,
           interest: {
             ...prev.interest,
-            for: [...prev.interest.for, { postid, posttitle }],
-            against: prev.interest.against.filter((item: any) => {
-              return item.postid !== postid;
-            }),
+            for: [...prev.interest.for, { postId, postTitle }],
+            // against: prev.interest.against.filter((item: any) => {
+            //   return item.postid !== postid;
+            // }),
           },
         };
       });
     }
-    if (e.target.innerHTML === "Not Interesting") {
-      setCurrentUser((prev: any) => {
-        return {
-          ...prev,
-          interest: {
-            ...prev.interest,
-            against: [...prev.interest.against, { postid, posttitle }],
-            for: prev.interest.for.filter((item: any) => {
-              return item.postid !== postid;
-            }),
-          },
-        };
-      });
-    }
+    // if (e.target.innerHTML === "Not Interesting") {
+    //   setCurrentUser((prev: any) => {
+    //     return {
+    //       ...prev,
+    //       interest: {
+    //         ...prev.interest,
+    //         against: [...prev.interest.against, { postid, posttitle }],
+    //         for: prev.interest.for.filter((item: any) => {
+    //           return item.postid !== postid;
+    //         }),
+    //       },
+    //     };
+    //   });
+    // }
 
-    console.log(response.data);
-    console.log(post._id);
+    fetchPosts(setPosts);
   };
 
   const deletePost = async (id: any) => {
@@ -79,17 +91,7 @@ const Reaction = ({ post, setPosts }: any) => {
           >
             Interesting
           </div>
-          <div
-            className={
-              currentUser?.interest?.against.find(
-                (obj: any) => obj.postid === post._id
-              )
-                ? styles.reactionSelected
-                : styles.reaction
-            }
-          >
-            Not Interesting
-          </div>
+
           {currentUser?.roles.admin ? (
             <div
               className={styles.adminDelete}

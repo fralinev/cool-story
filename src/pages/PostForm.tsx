@@ -2,6 +2,7 @@ import { useState, useContext, ChangeEvent, FormEvent, useEffect } from "react";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import PostDisplay from "./PostDisplay";
+import { fetchPosts } from "../../server/utils";
 
 const PostForm = () => {
   const { currentUser } = useContext(UserContext);
@@ -20,13 +21,8 @@ const PostForm = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const { data } = await axios.get("/api/posts");
-      setPosts(data.posts);
-      console.log("CURRENT USER = ", currentUser);
-    };
-
-    fetchPosts();
+    console.log("Current User: ", currentUser);
+    fetchPosts(setPosts);
   }, []);
 
   const handleAddStoryClick = () => {
@@ -59,10 +55,40 @@ const PostForm = () => {
 
     response = await axios.get("/api/posts");
     setPosts(response.data.posts);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!posts || posts.length === 0) {
-    return <div>loading...</div>;
+    return (
+      <>
+        <div>loading posts or no posts...</div>
+        <div className="post-form-outer-container">
+          <button onClick={handleAddStoryClick}>
+            {showForm ? "Nevermind" : "Add a story"}
+          </button>
+          {showForm ? (
+            <form className="post-form" onSubmit={handleFormSubmit}>
+              <label>
+                Title:
+                <input
+                  type="text"
+                  name="title"
+                  value={story.title}
+                  onChange={handleStoryChange}
+                />
+              </label>
+              <textarea
+                name="body"
+                value={story.body}
+                onChange={handleStoryChange}
+              />
+              <button>submit</button>
+            </form>
+          ) : null}
+          <h4>{isLoading ? <div className="lds-dual-ring"></div> : message}</h4>
+        </div>
+      </>
+    );
   }
 
   return (
