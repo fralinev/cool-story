@@ -30,20 +30,20 @@ const Reaction = ({ post, setPosts }: any) => {
       value: e.target.innerHTML,
     });
 
-    if (e.target.innerHTML === "Interesting") {
-      setCurrentUser((prev: any) => {
-        return {
-          ...prev,
-          interest: {
-            ...prev.interest,
-            for: [...prev.interest.for, { postId, postTitle }],
-            // against: prev.interest.against.filter((item: any) => {
-            //   return item.postid !== postid;
-            // }),
-          },
-        };
-      });
-    }
+    // if (e.target.innerHTML === "Interesting") {
+    //   setCurrentUser((prev: any) => {
+    //     return {
+    //       ...prev,
+    //       interest: {
+    //         ...prev.interest,
+    //         for: [...prev.interest.for, { postId, postTitle }],
+    //         against: prev.interest.against.filter((item: any) => {
+    //           return item.postid !== postid;
+    //         }),
+    //       },
+    //     };
+    //   });
+    // }
     // if (e.target.innerHTML === "Not Interesting") {
     //   setCurrentUser((prev: any) => {
     //     return {
