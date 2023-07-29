@@ -25,7 +25,7 @@ const TableArchive = ({ posts }: any) => {
       <tbody>
         {posts.map((post: any) => {
           return (
-            <tr className={styles.tableArchiveRow}>
+            <tr key={post.id} className={styles.tableArchiveRow}>
               <td>{post.title}</td>
               <td>{post.author}</td>
               <td>{post.body}</td>
